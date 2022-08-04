@@ -7,17 +7,17 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
+    <context:component-scan base-package="com.seleniumexpress"></context:component-scan>
+
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> <!--Datasource is a builtin class in JDBC Template having a constructor with 3 values-->
         <constructor-arg name="url" value="jdbc:mysql://127.0.0.1:3306/School?useSSL=false"/>
         <constructor-arg name="username" value="root"/>
-        <constructor-arg name="password" value="djangofrango"/>
+        <constructor-arg name="password" value="djangofrango"/> <!--We can also use the property class here; datasource extends from another class where these fields have setter-->
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> <!--Optional; As automatically detects it; property tag is must for this one-->
     </bean>
 
     <bean id="jdbcTemplateObject" class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg name="dataSource" ref="dataSource"/> <!--Injecting the datasource object in the JDBC-->
     </bean>
 
-    <bean id="studentDao" class="com.seleniumexpress.dao.StudentDAOImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplateObject"></property> <!--Setter Injection-->
-    </bean>
 </beans>

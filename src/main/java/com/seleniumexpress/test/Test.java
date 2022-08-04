@@ -12,11 +12,12 @@ public class Test {
         System.out.println("Application context loaded");
         StudentDAOImpl studentDaoImpl = context.getBean("studentDao", StudentDAOImpl.class); // (id from spring.xml, class name)
 
-        Student newStudent1 = new Student();
-        newStudent1.setRollNo(1);
-        newStudent1.setName("Micky");
-        newStudent1.setAddress("Chittagong");
+        // Deletetion by ID
+        boolean isDeleted = studentDaoImpl.deleteRecordByRollNo(2);
+        if(isDeleted) {
+            System.out.println("The roll no. 2 data got deleted");
+        }
 
-        studentDaoImpl.insert(newStudent1);
+
     }
 }
