@@ -12,9 +12,8 @@ public class Test {
         System.out.println("Application context loaded");
         StudentDAOImpl studentDaoImpl = context.getBean("studentDao", StudentDAOImpl.class); // (id from spring.xml, class name)
 
-        //Deletion by Name and Address
-        studentDaoImpl.deleteRecordByStudentNameOrStudentAddress("John", "Dhaka");
-
+        // Table Clean Up
+        studentDaoImpl.cleanUp();
 
     }
 }
