@@ -12,11 +12,8 @@ public class Test {
         System.out.println("Application context loaded");
         StudentDAOImpl studentDaoImpl = context.getBean("studentDao", StudentDAOImpl.class); // (id from spring.xml, class name)
 
-        // Deletetion by ID
-        boolean isDeleted = studentDaoImpl.deleteRecordByRollNo(2);
-        if(isDeleted) {
-            System.out.println("The roll no. 2 data got deleted");
-        }
+        //Deletion by Name and Address
+        studentDaoImpl.deleteRecordByStudentNameOrStudentAddress("John", "Dhaka");
 
 
     }
