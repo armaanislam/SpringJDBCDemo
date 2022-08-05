@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Repository("studentDao")
 public class StudentDAOImpl implements StudentDAO {
 
@@ -21,6 +24,18 @@ public class StudentDAOImpl implements StudentDAO {
         Object[] arg = {student.getRollNo(), student.getName(), student.getAddress()};
         int noOfRowInserted = jdbcTemplate.update(sql, arg); //(sql, value); We used jdbc.update because after inserting a data, technically the table will be updated
         System.out.println("No. of row inserted is "+noOfRowInserted);
+    }
+
+    @Override
+    public void insert(List<Student> students) {
+        String sql = "INSERT INTO STUDENT VALUES (?, ?, ?)";
+        ArrayList<Object[]> sqlArgs = new ArrayList<>();
+        for(Student tempStudent: students) {
+            Object[] studentData = {tempStudent.getRollNo(), tempStudent.getName(), tempStudent.getAddress()};
+            sqlArgs.add(studentData);
+        }
+        jdbcTemplate.batchUpdate(sql, sqlArgs);
+        System.out.println("Batch Updated Completed");
     }
 
     @Override

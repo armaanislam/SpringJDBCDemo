@@ -1,1 +1,2 @@
 com.seleniumexpress.dao.StudentDAOImpl=org.springframework.stereotype.Component
+com.seleniumexpress.service.StudentDAOHelper=org.springframework.stereotype.Component
