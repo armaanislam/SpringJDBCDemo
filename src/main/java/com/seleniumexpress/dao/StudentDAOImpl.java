@@ -3,6 +3,7 @@ package com.seleniumexpress.dao;
 import com.seleniumexpress.api.Student;
 import com.seleniumexpress.rowmapper.StudentRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -76,11 +77,23 @@ public class StudentDAOImpl implements StudentDAO {
         return studentList;
     }
 
-    @Override
+    /*@Override
     public Student findStudentByRollNo(int rollno) {
 
         String sql = "SELECT * FROM STUDENT WHERE ROLL_NUM = ?";
         Student student = jdbcTemplate.queryForObject(sql, new StudentRowMapper(), rollno);
+        return student;
+    }*/
+
+    @Override
+    public Student findStudentByRollNo(int rollno) {
+
+        String sql = "SELECT ROLL_NUM as rollno, " +
+                "STUDENT_NAME as name, " +
+                "STUDENT_ADDRESS as address " +
+                "FROM STUDENT " +
+                "WHERE ROLL_NUM = ?"; // In case of beanproperturowmapper, we need to use alias name in sql statement, ('Table name from db' as 'Java variable name')
+        Student student = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Student>(Student.class), rollno);
         return student;
     }
 }
