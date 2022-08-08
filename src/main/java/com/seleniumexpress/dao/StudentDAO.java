@@ -12,4 +12,9 @@ public interface StudentDAO {
     boolean deleteRecordByRollNo(int RollNo);
 
     int deleteRecordByStudentNameOrStudentAddress(String studentName,String studentAddress);
+
+    List<Student> findAllStudents();
+
+    Student findStudentByRollNo(int rollno);
+
 }

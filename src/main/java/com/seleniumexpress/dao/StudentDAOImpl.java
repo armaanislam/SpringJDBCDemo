@@ -1,6 +1,7 @@
 package com.seleniumexpress.dao;
 
 import com.seleniumexpress.api.Student;
+import com.seleniumexpress.rowmapper.StudentRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -66,5 +67,20 @@ public class StudentDAOImpl implements StudentDAO {
     public void cleanUp() {
         jdbcTemplate.execute("TRUNCATE TABLE STUDENT"); // Execute runs direct SQL; Better for DDL
         System.out.println("Table truncated");
+    }
+
+    @Override
+    public List<Student> findAllStudents() {
+        String sql = "SELECT * FROM STUDENT";
+        List<Student> studentList = jdbcTemplate.query(sql, new StudentRowMapper());
+        return studentList;
+    }
+
+    @Override
+    public Student findStudentByRollNo(int rollno) {
+
+        String sql = "SELECT * FROM STUDENT WHERE ROLL_NUM = ?";
+        Student student = jdbcTemplate.queryForObject(sql, new StudentRowMapper(), rollno);
+        return student;
     }
 }

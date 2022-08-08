@@ -6,6 +6,8 @@ import com.seleniumexpress.service.StudentDAOHelper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.List;
+
 public class Test {
     public static void main(String[] args) {
 
@@ -14,11 +16,11 @@ public class Test {
 
         StudentDAOHelper studentDAOHelper = context.getBean("studentDAOHelper", StudentDAOHelper.class);
 
-        //Set Up Table
-        studentDAOHelper.setupStudentTable();
+//        //Set Up Table
+//        studentDAOHelper.setupStudentTable();
 
 
-//        StudentDAOImpl studentDaoImpl = context.getBean("studentDao", StudentDAOImpl.class); // (id from spring.xml, class name)
+        StudentDAOImpl studentDaoImpl = context.getBean("studentDao", StudentDAOImpl.class); // (id from spring.xml, class name)
 
 //        Insertion
 //        Student newStudent1 = new Student();
@@ -43,7 +45,13 @@ public class Test {
 //        // Table Clean up
 //        studentDaoImpl.cleanUp();
 
+//        // SELECT Row Mapper
+//        List<Student> studentList = studentDaoImpl.findAllStudents();
+//        studentDAOHelper.printStudents(studentList);
 
+        // Find a single object
+        Student student = studentDaoImpl.findStudentByRollNo(2);
+        System.out.println(student);
 
     }
 }
